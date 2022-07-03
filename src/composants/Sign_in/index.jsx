@@ -17,7 +17,11 @@ const SignIn = () => {
                         <input type="checkbox" id="remember-me" />
                         <label for="remember-me">Remember me</label>
                     </div>
-                    <button className="sign-in-button">Sign In</button>
+                    <div className="input-remember">
+                        <input type="checkbox" id="sign-up" />
+                        <label for="sign-up">Sign up</label>
+                    </div>
+                    <button className="sign-in-button">Sign Up</button>
                 </form>
             </section>
         </main>

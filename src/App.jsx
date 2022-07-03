@@ -15,7 +15,6 @@ function App() {
         <>
             <Router>
                 <Routes>
-                    <Route exact path="/" element={<Main />} />
                     <Route
                         path="/user/login"
                         element={<Main isOpen={true} />}
@@ -28,6 +27,7 @@ function App() {
                         path="/user/profile"
                         element={<Main isProfile={true} />}
                     />
+                    <Route exact path="/" element={<Main />} />
                     <Route path="*" element={<Error codeError="404" />} />
                 </Routes>
             </Router>
