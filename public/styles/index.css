@@ -156,7 +156,8 @@ body {
     margin-bottom: 0.5rem;
 }
 
-.sign-in-button {
+.sign-in-button,
+.sign-up-button {
     display: block;
     width: 100%;
     padding: 8px;
@@ -168,7 +169,8 @@ body {
     color: #fff;
 }
 
-.sign-in-content {
+.sign-in-content,
+.sign-up-content {
     box-sizing: border-box;
     background-color: white;
     width: 300px;
@@ -181,11 +183,13 @@ body {
     font-size: 5rem;
 }
 
-.input-remember {
+.input-remember,
+.input-sign-in {
     display: flex;
 }
 
-.input-remember label {
+.input-remember label,
+.input-sign-in label {
     margin-left: 0.25rem;
 }
 

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { openSignIn, closeSignIn } from '../../../features/SignInSlice';
+import { openAuthForm, closeAuthForm } from '../../../features/SignInSlice';
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -10,7 +10,7 @@ const Login = () => {
             <Link to="/user/login">
                 <div
                     className="main-nav-item"
-                    onClick={() => dispatch(openSignIn())}
+                    onClick={() => dispatch(openAuthForm())}
                 >
                     <i className="fa fa-user-circle"></i>
                     Sign In

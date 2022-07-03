@@ -2,7 +2,7 @@ import logo from '../../assets/img/argentBankLogo.png';
 import Login from './Login';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { openSignIn, closeSignIn } from '../../features/SignInSlice';
+import { openAuthForm, closeAuthForm } from '../../features/SignInSlice';
 
 const Navbar = () => {
     const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const Navbar = () => {
                         className="main-nav-logo-image"
                         src={logo}
                         alt="Argent Bank Logo"
-                        onClick={() => dispatch(closeSignIn())}
+                        onClick={() => dispatch(closeAuthForm())}
                     />
                     <h1 className="sr-only">Argent Bank</h1>
                 </div>
