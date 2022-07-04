@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const SignInSlice = createSlice({
-    name: 'login',
+    name: 'authForm',
     initialState,
     reducers: {
         //authentification form

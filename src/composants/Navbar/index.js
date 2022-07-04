@@ -21,7 +21,12 @@ const Navbar = () => {
                 </div>
             </Link>
 
-            <Login />
+            <Link to="/user/login">
+                <div className="main-nav-item">
+                    <i className="fa fa-user-circle"></i>
+                    Sign In
+                </div>
+            </Link>
         </nav>
     );
 };
