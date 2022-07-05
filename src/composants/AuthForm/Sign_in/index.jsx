@@ -1,23 +1,20 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { type } from '@testing-library/user-event/dist/type';
-import axios from 'axios';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
-import { Alert, Spinner } from 'react-bootstrap';
+// import { Alert, Spinner } from 'react-bootstrap';
+
 import {
-    loginPending,
-    loginSuccess,
-    loginFail,
-} from '../../../features/AuthSlice/LogIn';
-import userLogin from '../../../api/userAPI';
+    getUserPending,
+    getUserSuccess,
+    getUserFail,
+} from '../../../features/UserSlice';
+
+import userLogin, { fetchUser } from '../../../api/userAPI';
 import { useNavigate } from 'react-router-dom';
-import getUserProfile from '../../Dashboard/UserActions';
 
 const SignIn = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { isLoading, isAuth, error } = useSelector((store) => store.login);
 
     //verification if checkbox "signIUp" is checked, use local state
     const [formData, setFormData] = useState({
@@ -42,21 +39,21 @@ const SignIn = () => {
     //submit information
     const handleSubmit = async (event) => {
         event.preventDefault();
+
         //submit to API
         //add verification of format!!! and isAuth=true
-        dispatch(loginPending());
+        dispatch(getUserPending());
         console.log(formData);
         try {
             const isAuth = await userLogin(formRequest, isRemember);
             console.log(isAuth);
-            dispatch(loginSuccess());
-            dispatch(getUserProfile());
+            const user = await fetchUser();
+            console.log(user);
+            user && dispatch(getUserSuccess(user.body));
             navigate('/user/profile');
-
-            console.log(isAuth);
         } catch (error) {
             console.log(error);
-            dispatch(loginFail(error.message));
+            dispatch(getUserFail(error.message));
         }
     };
 

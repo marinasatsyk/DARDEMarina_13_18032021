@@ -4,6 +4,9 @@ import {
     getUserFail,
 } from '../../../features/UserSlice';
 import { fetchUser } from '../../../api/userAPI';
+
+//function for get  user's loggent information and post it in the state
+
 const getUserProfile = () => async (dispatch) => {
     try {
         dispatch(getUserPending());

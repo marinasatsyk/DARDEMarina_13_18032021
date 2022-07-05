@@ -1,21 +1,17 @@
 import Navbar from './composants/Navbar';
 import Footer from './composants/Footer';
 import Error from './composants/Error';
-import {
-    BrowserRouter as Router,
-    Route,
-    Routes,
-    useLocation,
-    Navigate,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './router/ProtectedRoute';
 import Dashboard from './composants/Dashboard';
 import { useState } from 'react';
 import SignIn from './composants/AuthForm/Sign_in';
 import SignUp from './composants/AuthForm/Sign_up';
 import Landing from './composants/Landing';
+
 function App() {
     const [user, setUser] = useState('user');
+
     return (
         <>
             <Router>
