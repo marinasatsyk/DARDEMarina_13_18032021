@@ -11,31 +11,12 @@ import {
     loginFail,
 } from '../../../features/AuthSlice/LogIn';
 import userLogin from '../../../api/userAPI';
-
-//===============================AXIOS FOR TRANSFER
-// export const getCartItems = createAsyncThunk(
-//     'cart/getCartItems',
-//     async (name, thunkAPI) => {
-//         try {
-//             // console.log(name);
-//             // console.log(thunkAPI.getState());
-//             // thunkAPI.dispatch(openModal());
-//             const resp = await axios(url);
-
-//             console.log(resp);
-//             return resp.data;
-//         } catch (error) {
-//             return thunkAPI.rejectWithValue(
-//                 'something went wrong getCartItems'
-//             );
-//         }
-//     }
-// );
-
-//===============================AXIOS FOR TRANSFER
+import { useNavigate } from 'react-router-dom';
+import getUserProfile from '../../Dashboard/UserActions';
 
 const SignIn = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { isLoading, isAuth, error } = useSelector((store) => store.login);
 
     //verification if checkbox "signIUp" is checked, use local state
@@ -44,9 +25,9 @@ const SignIn = () => {
         password: '',
         isRemember: false,
     });
-    const { username, password } = formData;
+    const { username, password, isRemember } = formData;
     const formRequest = { email: username, password: password };
-    // console.log(formRequest);
+    console.log(isRemember);
 
     //function for get the input value
     function handleChange(event) {
@@ -66,10 +47,11 @@ const SignIn = () => {
         dispatch(loginPending());
         console.log(formData);
         try {
-            const isAuth = await userLogin(formRequest);
+            const isAuth = await userLogin(formRequest, isRemember);
             console.log(isAuth);
-
             dispatch(loginSuccess());
+            dispatch(getUserProfile());
+            navigate('/user/profile');
 
             console.log(isAuth);
         } catch (error) {
@@ -84,12 +66,10 @@ const SignIn = () => {
 
     return (
         <main className="main bg-dark">
-            {/* {isSignUp && <SignUp />}
-            {isSignIn && ( */}
             <section className="sign-in-content">
                 <i className="fa fa-user-circle sign-in-icon"></i>
                 <h1>Sign In</h1>
-                {/* {error && <Alert variant='danger'/>} */}
+
                 <form onSubmit={handleSubmit}>
                     <div className="input-wrapper">
                         <label htmlFor="username">Username</label>
@@ -127,15 +107,12 @@ const SignIn = () => {
                             <div>Sign up</div>
                         </Link>
                     }
-                    {/* {isLoading && (
-                        <Spinner variant="primary" animation="border" />
-                    )} */}
+
                     <button className="sign-in-button" onClick={openDashboard}>
                         Sign In
                     </button>
                 </form>
             </section>
-            {/* )} */}
         </main>
     );
 };
