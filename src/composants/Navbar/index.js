@@ -15,8 +15,13 @@ import {
 const Navbar = () => {
     const { user, id } = useSelector((store) => store.user);
     const navigate = useNavigate();
-
     const dispatch = useDispatch();
+    function capitalizeFirstLetter(str) {
+        // converting first letter to uppercase
+        const capitalized = str.charAt(0).toUpperCase() + str.slice(1);
+
+        return capitalized;
+    }
 
     const signOut = () => {
         localStorage.removeItem('JWT');
@@ -73,8 +78,7 @@ const Navbar = () => {
                             viewProfile();
                         }}
                     >
-                        <i className="fa fa-user-circle"></i>
-                        {user.firstName + ' ' + user.lastName}
+                        {/* <i className="fa fa-user-circle"></i> */}
                     </div>
 
                     <div
@@ -83,8 +87,15 @@ const Navbar = () => {
                             signOut();
                         }}
                     >
-                        <i className="fa fa-user-circle"></i>
-                        Sign Out
+                        <div>
+                            <i className="fa fa-user-circle"></i>
+                            {capitalizeFirstLetter(user.firstName)}
+                        </div>
+
+                        <div>
+                            <i class="fa fa-sign-out"></i>
+                            Sign Out
+                        </div>
                     </div>
                 </>
             )}

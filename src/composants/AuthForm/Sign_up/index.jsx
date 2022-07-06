@@ -1,51 +1,268 @@
+import axios from 'axios';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { openSignIn, closeSignUp } from '../../../features/SignInSlice';
 
 const SignUp = () => {
     const dispatch = useDispatch();
-    // const { isSignIn, isSignUp } = useSelector((store) => store.login);
+    const navigate = useNavigate();
 
-    function handeleCheck(event) {
-        const { checked } = event.target;
-        console.log(checked);
-        if (checked) {
-            dispatch(openSignIn());
-            dispatch(closeSignUp());
-        }
+    //verification if checkbox "signIUp" is checked, use local state
+    const [payloadSignUp, setPayloadSignUp] = useState({
+        email: '',
+        password: '',
+        firstName: '',
+        lastName: '',
+    });
+
+    const [isEmailValidate, setIsEmailValidate] = useState(true);
+    const [isPasswordValidate, setIsPasswordIsValidate] = useState(true);
+    const [isFirstNameValidate, setIsFirstNameIsValidate] = useState(true);
+    const [isLastNameValidate, setIsLastNameIsValidate] = useState(true);
+    // const { email, password, firstName, lastName } = payloadSignUp;
+    // const formRequest = { email: email, password: password, firstName:firstName,  lastName:lastName};
+
+    //function for get the input value . Composants sont controlés
+    function handleChange(event) {
+        const { name, value, type, checked } = event.target;
+
+        setPayloadSignUp((prevFormData) => {
+            return {
+                ...prevFormData,
+
+                [name]: type === 'checkbox' ? checked : value,
+            };
+        });
+    }
+    console.log(payloadSignUp);
+    //func   unified characters for first & last names
+    const unifyString = (val) => {
+        return val.trim().toLowerCase().split(' ').join('');
+    };
+    const { email, password, firstName, lastName } = payloadSignUp;
+    // store correct values for do  API  put request
+    const formRequest = {
+        email: '',
+        password: '',
+        firstName: '',
+        lastName: '',
+    };
+
+    //VALIDATEION PART
+
+    function validateEmail(email) {
+        console.log('validateEmail WORK');
+        let re =
+            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+    //minimum 6 caracteres 1 lettre 1 chiffre
+    function validatePassword(password) {
+        console.log('validatepassword WORK');
+        let re = /^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{6,}$/;
+        return re.test(password);
     }
 
+    //verification of form data + post axios
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log('handleSubmit');
+        if (validateEmail(payloadSignUp.email) === false) {
+            setIsEmailValidate(false);
+        }
+        if (validatePassword(payloadSignUp.password) === false) {
+            setIsPasswordIsValidate(false);
+        }
+        if (payloadSignUp.firstName.length < 2) {
+            setIsFirstNameIsValidate(false);
+        }
+        if (payloadSignUp.lastName.length < 2) {
+            setIsLastNameIsValidate(false);
+        }
+
+        if (
+            isEmailValidate &&
+            isPasswordValidate &&
+            isFirstNameValidate &&
+            isLastNameValidate
+        ) {
+            formRequest.email = email;
+            formRequest.password = password;
+            formRequest.firstName = unifyString(firstName);
+            formRequest.lastName = unifyString(lastName);
+            console.log('*********formRequest from validate*********');
+            console.log(formRequest);
+            putDataNewUser();
+        }
+    };
+
+    //put data to API User
+    const putDataNewUser = async () => {
+        console.log('putData function');
+        const url = 'http://localhost:3001/api/v1/user/signup';
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await axios.post(url, formRequest);
+                console.log(res);
+                if (res.data.status === 200) {
+                    navigate('/user/login');
+                }
+                resolve(res.data);
+            } catch (error) {
+                // dispatch(getUserFail(error));
+                console.log(error);
+                reject(error.message);
+            }
+        });
+    };
+
+    //VALIDATEION PART
     return (
         <main className="main bg-dark">
             <section className="sign-up-content">
                 <i className="fa fa-user-circle sign-in-icon"></i>
                 <h1>Sign Up</h1>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="input-wrapper">
                         <label htmlFor="email">Email</label>
-                        <input type="text" id="email" />
+                        {isEmailValidate ? (
+                            <input
+                                type="text"
+                                className="text-control"
+                                id="email"
+                                required
+                                name="email"
+                                onChange={handleChange}
+                                value={payloadSignUp.email}
+                            />
+                        ) : (
+                            <>
+                                <input
+                                    type="text"
+                                    className="text-control bg-error"
+                                    id="email"
+                                    required
+                                    name="email"
+                                    onChange={handleChange}
+                                    onClick={() => setIsEmailValidate(true)}
+                                    value={payloadSignUp.email}
+                                    style={{ background: '#edcecc' }}
+                                />
+                                <div style={{ color: 'red', fontSize: '10px' }}>
+                                    Make sure to enter correct mail
+                                </div>
+                            </>
+                        )}
                     </div>
                     <div className="input-wrapper">
                         <label htmlFor="password">Password</label>
-                        <input type="text" id="password" />
+                        {isPasswordValidate ? (
+                            <input
+                                type="text"
+                                className="text-control"
+                                id="password"
+                                required
+                                name="password"
+                                minLength="6"
+                                onChange={handleChange}
+                                value={payloadSignUp.password}
+                            />
+                        ) : (
+                            <>
+                                <input
+                                    type="text"
+                                    className="text-control"
+                                    id="password"
+                                    required
+                                    name="password"
+                                    minLength="6"
+                                    onChange={handleChange}
+                                    value={payloadSignUp.password}
+                                    onClick={() =>
+                                        setIsPasswordIsValidate(true)
+                                    }
+                                    style={{ background: '#edcecc' }}
+                                />
+                                <div style={{ color: 'red', fontSize: '10px' }}>
+                                    Make shure to use at least 1 letter, 1
+                                    number, 6 characters
+                                </div>
+                            </>
+                        )}
                     </div>
                     <div className="input-wrapper">
                         <label htmlFor="firstName">First Name</label>
-                        <input type="text" id="firstName" />
+                        {isFirstNameValidate ? (
+                            <input
+                                type="text"
+                                className="text-control"
+                                id="firstName"
+                                required
+                                name="firstName"
+                                minLength="2"
+                                onChange={handleChange}
+                                value={payloadSignUp.firstName}
+                            />
+                        ) : (
+                            <>
+                                <input
+                                    type="text"
+                                    className="text-control"
+                                    id="firstName"
+                                    required
+                                    name="firstName"
+                                    minLength="2"
+                                    onChange={handleChange}
+                                    value={payloadSignUp.firstName}
+                                    onClick={() =>
+                                        setIsFirstNameIsValidate(true)
+                                    }
+                                    style={{ background: '#edcecc' }}
+                                />
+                                <div style={{ color: 'red', fontSize: '10px' }}>
+                                    Make shure to use at 2 characters
+                                </div>
+                            </>
+                        )}
                     </div>
                     <div className="input-wrapper">
                         <label htmlFor="lastName">Last Name</label>
-                        <input type="text" id="lastName" />
+
+                        {isLastNameValidate ? (
+                            <input
+                                type="text"
+                                className="text-control"
+                                id="lastName"
+                                required
+                                name="lastName"
+                                minLength="2"
+                                onChange={handleChange}
+                                value={payloadSignUp.lastName}
+                            />
+                        ) : (
+                            <>
+                                <input
+                                    type="text"
+                                    className="text-control"
+                                    id="lastName"
+                                    required
+                                    name="lastName"
+                                    minLength="2"
+                                    onChange={handleChange}
+                                    value={payloadSignUp.lastName}
+                                    onClick={() =>
+                                        setIsLastNameIsValidate(true)
+                                    }
+                                    style={{ background: '#edcecc' }}
+                                />
+                                <div style={{ color: 'red', fontSize: '10px' }}>
+                                    Make shure to use at 2 characters
+                                </div>
+                            </>
+                        )}
                     </div>
-                    {/* <div className="input-sign-in">
-                    <input
-                        type="checkbox"
-                        id="sign-in"
-                        onChange={handeleCheck}
-                        name="isSignUp"
-                    />
-                    <label htmlFor="sign-in">Sign In</label>
-                </div> */}
+
                     <Link to="/user/login">
                         <div>Sign In</div>
                     </Link>

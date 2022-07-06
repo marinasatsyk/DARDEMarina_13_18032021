@@ -8,9 +8,11 @@ import { useState } from 'react';
 import SignIn from './composants/AuthForm/Sign_in';
 import SignUp from './composants/AuthForm/Sign_up';
 import Landing from './composants/Landing';
+import { useSelector } from 'react-redux';
 
 function App() {
-    const [user, setUser] = useState('user');
+    const { user } = useSelector((store) => store.user);
+    const id = user.id;
 
     return (
         <>
@@ -23,7 +25,7 @@ function App() {
                     <Route
                         path="/user/profile"
                         element={
-                            <ProtectedRoute user={user}>
+                            <ProtectedRoute id={id}>
                                 <Dashboard />
                             </ProtectedRoute>
                         }

@@ -57,6 +57,9 @@ body {
 .main-nav-item {
     text-decoration: none;
     margin-right: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+    cursor: pointer;
 }
 
 .main-nav-item:hover {
@@ -295,4 +298,15 @@ body {
     .transaction-button {
         width: 200px;
     }
+}
+/* part of change user form */
+
+.wrapInput-changeUser {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.wrapInput-changeUser .input-wrapper input {
+    margin-bottom: 10px;
 }
