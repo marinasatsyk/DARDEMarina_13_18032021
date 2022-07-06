@@ -12,6 +12,7 @@ import {
     getUserFail,
 } from '../../features/UserSlice';
 
+//component header of the application
 const Navbar = () => {
     const { user, id } = useSelector((store) => store.user);
     const navigate = useNavigate();
@@ -34,7 +35,7 @@ const Navbar = () => {
         navigate('/user/profile');
     };
 
-    //autoconnetion for remember me
+    //autoconnetion for case "remember me"
     const [logged, setLogged] = useState(false);
     useEffect(() => {
         dispatch(getUserPending());

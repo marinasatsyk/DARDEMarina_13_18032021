@@ -1,8 +1,7 @@
-import axios from 'axios';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { openSignIn, closeSignUp } from '../../../features/SignInSlice';
+import { putDataNewUser } from '../../../api/userAPI';
 
 const SignUp = () => {
     const dispatch = useDispatch();
@@ -93,28 +92,9 @@ const SignUp = () => {
             formRequest.lastName = unifyString(lastName);
             console.log('*********formRequest from validate*********');
             console.log(formRequest);
-            putDataNewUser();
+            //API new user
+            putDataNewUser(navigate, formRequest);
         }
-    };
-
-    //put data to API User
-    const putDataNewUser = async () => {
-        console.log('putData function');
-        const url = 'http://localhost:3001/api/v1/user/signup';
-        return new Promise(async (resolve, reject) => {
-            try {
-                const res = await axios.post(url, formRequest);
-                console.log(res);
-                if (res.data.status === 200) {
-                    navigate('/user/login');
-                }
-                resolve(res.data);
-            } catch (error) {
-                // dispatch(getUserFail(error));
-                console.log(error);
-                reject(error.message);
-            }
-        });
     };
 
     //VALIDATEION PART

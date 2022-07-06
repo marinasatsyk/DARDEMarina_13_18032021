@@ -14,6 +14,11 @@ function capitalizeFirstLetter(str) {
 
     return capitalized;
 }
+
+/**
+ * @param {string} val
+ * @returns {string}
+ */
 const unifyString = (val) => {
     return val.trim().toLowerCase().split(' ').join('');
 };

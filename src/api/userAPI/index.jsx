@@ -66,6 +66,26 @@ export const fetchUser = () => {
     });
 };
 
+export const putDataNewUser = async (navigate, formRequest) => {
+    console.log('putData function');
+    // const url = 'http://localhost:3001/api/v1/user/signup';
+
+    return new Promise(async (resolve, reject) => {
+        try {
+            const res = await axios.post(signUpUrl, formRequest);
+            console.log(res);
+            if (res.data.status === 200) {
+                navigate('/user/login');
+            }
+            resolve(res.data);
+        } catch (error) {
+            // dispatch(getUserFail(error));
+            console.log(error);
+            reject(error.message);
+        }
+    });
+};
+
 export const updateUser = (formUpdate) => {
     console.log('formUpdate update User');
     console.log(formUpdate);
@@ -85,12 +105,7 @@ export const updateUser = (formUpdate) => {
                     Authorization: 'Bearer ' + JWT,
                 },
             });
-            // const res = await axios({
-            //     method: 'put',
-            //     url: userUrl,
-            //     formUpdate,
-            //     headers: { Authorization: 'Bearer ' + JWT },
-            // });
+
             console.log(res);
             resolve(res.data);
         } catch (error) {
