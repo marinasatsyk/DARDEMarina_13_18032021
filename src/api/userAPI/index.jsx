@@ -66,4 +66,39 @@ export const fetchUser = () => {
     });
 };
 
+export const updateUser = (formUpdate) => {
+    console.log('formUpdate update User');
+    console.log(formUpdate);
+    return new Promise(async (resolve, reject) => {
+        try {
+            const JWT = getJWT();
+            if (!JWT) reject('Token non found!');
+
+            console.log('in try UPDATE');
+            console.log('update ' + JWT);
+
+            const res = await axios({
+                method: 'put',
+                url: userUrl,
+                data: formUpdate,
+                headers: {
+                    Authorization: 'Bearer ' + JWT,
+                },
+            });
+            // const res = await axios({
+            //     method: 'put',
+            //     url: userUrl,
+            //     formUpdate,
+            //     headers: { Authorization: 'Bearer ' + JWT },
+            // });
+            console.log(res);
+            resolve(res.data);
+        } catch (error) {
+            // dispatch(getUserFail(error));
+            console.log(error);
+            reject(error.message);
+        }
+    });
+};
+
 export default userLogin;
