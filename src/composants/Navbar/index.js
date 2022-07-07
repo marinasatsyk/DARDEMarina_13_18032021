@@ -1,6 +1,6 @@
 import logo from '../../assets/img/argentBankLogo.png';
 // import Login from './Login';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../features/UserSlice';
 import { useEffect, useState } from 'react';

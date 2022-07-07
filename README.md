@@ -16,7 +16,7 @@ There is all the information concerning the installation of backend part in file
 
 ### 2.1 Prerequisites
 
--   [NodeJS (**version 12.18**)](https://nodejs.org/en/)
+-   [NodeJS (**version 12.18**)](https://nodejs.org/en/) but not hegher vesrsion 16 because there is incopatibility batween nodeJS and backend part
 -   [Yarn](https://yarnpkg.com/)
 
 ### 2.2 Launching the project

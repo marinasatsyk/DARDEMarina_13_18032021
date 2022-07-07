@@ -8,42 +8,6 @@ function capitalizeFirstLetter(str) {
 
     return capitalized;
 }
-// export const HeaderChangeUser = ({ onChageUser, setOnChangeUser }) => {
-//     const { user, id } = useSelector((store) => store.user);
-
-//     return (
-//         <div className="header">
-//             <h1> Welcome back</h1>
-//             <form>
-//                 <div className="wrapInput-changeUser">
-//                     <div className="input-wrapper">
-//                         <input
-//                             type="text"
-//                             id="FirstName"
-//                             name="FirstName"
-//                             placeholder={capitalizeFirstLetter(user.firstName)}
-//                         />
-//                         <button className="edit-button">Save</button>
-//                     </div>
-//                     <div className="input-wrapper">
-//                         <input
-//                             type="text"
-//                             id="LastName"
-//                             name="LastName"
-//                             placeholder={capitalizeFirstLetter(user.lastName)}
-//                         />
-//                         <button
-//                             className="edit-button"
-//                             onClick={() => setOnChangeUser(false)}
-//                         >
-//                             Cancel
-//                         </button>
-//                     </div>
-//                 </div>
-//             </form>
-//         </div>
-//     );
-// };
 
 export const HeaderWelcome = ({ onChageUser, setOnChangeUser }) => {
     const { user, id } = useSelector((store) => store.user);
