@@ -1,0 +1,279 @@
+openapi: 3.0.0
+info:
+    title: Bank Argent API documentation
+    description: Contains all available API endpoints in this codebase
+    version: 1.0.0
+servers:
+    - url: http://localhost:3001/api/v1
+paths:
+    /user/transactions:
+        description: API for Transactions
+        get:
+            description: API for fetch all transactions
+            security:
+                - bearerAuth: []
+            parameters:
+                - in: header
+                  name: Bearer JWT
+                  required: true
+                  schema:
+                      type: string
+                      # exapmle: Bearer qdfmlkjgmlkjdlskjdmlkjmk
+            responses:
+                200:
+                    description: Success Response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/transactions'
+                400:
+                    description: Invalid fields
+                500:
+                    description: Internal Server Error
+        post:
+            description: API for add a new transaction
+            parameters:
+                - in: header
+                  name: Bearer JWT
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/transaction'
+            responses:
+                201:
+                    description: Recorde Successully added
+                400:
+                    description: Invalid fields
+                500:
+                    description: Internal Server Error
+        put:
+            description: API for updating a transaction attributes
+            security:
+                - bearerAuth: []
+            parameters:
+                - in: header
+                  name: Bearer JWT
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                id:
+                                    type: integer
+                                    description: transaction id
+                                    example: 25
+                                category:
+                                    type: string
+                                    description: transaction category
+                                    example: food
+                                notes:
+                                    type: string
+                                    description: user notes
+                                    example: return 10 to steve
+            responses:
+                200:
+                    description: transaction data retrieved successfully
+                400:
+                    description: Invalid fields
+                500:
+                    description: Internal Server Error
+        delete:
+            description: API for delete a transaction
+            security:
+                - bearerAuth: []
+            parameters:
+                - in: header
+                  name: Bearer JWT
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: id
+                  required: true
+                  schema:
+                      type: integer
+                  example: 25
+            responses:
+                200:
+                    description: transaction deleted successfully
+                400:
+                    description: Invalid fields
+                500:
+                    description: Internal Server Error
+    /user/transactions{expenseGroup}:
+        description: Get all transactions of one groupe
+        get:
+            description: API for fetch all transactions of one groupe
+            security:
+                - bearerAuth: []
+            parameters:
+                - in: path
+                  name: expenseGroup
+                  required: true
+                  example: checking/savings/credit
+                  schema:
+                      type: string
+                - in: header
+                  name: Bearer JWT
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                200:
+                    description: Success Response with Path Params
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/transactions'
+                400:
+                    description: Invalid fields
+                500:
+                    description: Internal Server Error
+    /user/transactions{id}:
+        description: Get one transaction
+        get:
+            description: API for fetch one  transaction
+            security:
+                - bearerAuth: []
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  example: 456
+                  schema:
+                      type: integer
+                - in: header
+                  name: Bearer JWT
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: id
+                  required: true
+                  example: 456
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    description: Success Response with Path Params
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/transaction'
+                400:
+                    description: Invalid fields
+                500:
+                    description: Internal Server Error
+
+components:
+    securitySchemes:
+        bearerAuth: # arbitrary name for the security scheme
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+    schemas:
+        transaction:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: transaction id
+                    example: 25
+                name:
+                    type: string
+                    description: transaction description
+                    example: Golden Sun Backery
+                date:
+                    type: string
+                    description: transaction date
+                    example: 2022-06-30
+                amount:
+                    type: integer
+                    description: transaction amount
+                    example: 20
+                currency:
+                    type: string
+                    description: tansaction currency
+                    example: usd
+                balance:
+                    type: integer
+                    description: user's account total balance
+                    example: 2548
+                typeTransaction:
+                    type: string
+                    description: transaction type
+                    example: recreation
+                category:
+                    type: string
+                    description: transaction category
+                    example: food
+                categoryId:
+                    type: integer
+                    description: transaction category
+                    example: 12
+                notes:
+                    type: string
+                    description: user notes
+                    example: return 10 to steve
+                expenseGroup:
+                    type: string
+                    description: name of groupe of transaction checking/savings/credit
+                    example: checking
+        transactions:
+            type: array
+            items:
+                properties:
+                    id:
+                        type: integer
+                        description: transaction id
+                        example: 25
+                    name:
+                        type: string
+                        description: transaction description
+                        example: Golden Sun Backery
+                    date:
+                        type: string
+                        description: transaction date
+                        example: 2022-06-30
+                    amount:
+                        type: integer
+                        description: transaction amount
+                        example: 20
+                    currency:
+                        type: string
+                        description: tansaction currency
+                        example: usd
+                    balance:
+                        type: integer
+                        description: user's account total balance
+                        example: 2548
+                    typeTransaction:
+                        type: string
+                        description: transaction type
+                        example: recreation
+                    category:
+                        type: string
+                        description: transaction category
+                        example: food
+                    categoryId:
+                        type: integer
+                        description: transaction category
+                        example: 12
+                    notes:
+                        type: string
+                        description: user notes
+                        example: return 10 to steve
+                    expenseGroup:
+                        type: string
+                        description: name of groupe of transaction checking/savings/credit
+                        example: checking
