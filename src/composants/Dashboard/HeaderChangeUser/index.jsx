@@ -90,6 +90,34 @@ export const HeaderChangeUser = ({ onChageUser, setOnChangeUser }) => {
                             onChange={handleChange}
                             value={formData.firstName}
                         />
+                        <input
+                            type="text"
+                            id="lastName"
+                            name="lastName"
+                            placeholder={capitalizeFirstLetter(user.lastName)}
+                            onChange={handleChange}
+                            value={formData.lastName}
+                        />
+                    </div>
+                    <div className="input-wrapper right">
+                        <button className="edit-button change-user">
+                            Save
+                        </button>
+                        <div
+                            className="edit-button change-user"
+                            onClick={() => setOnChangeUser(false)}
+                        >
+                            Cancel
+                        </div>
+                        {/* <div className="input-wrapper left">
+                        <input
+                            type="text"
+                            id="firstName"
+                            name="firstName"
+                            placeholder={capitalizeFirstLetter(user.firstName)}
+                            onChange={handleChange}
+                            value={formData.firstName}
+                        />
                         <button className="edit-button change-user">
                             Save
                         </button>
@@ -108,7 +136,7 @@ export const HeaderChangeUser = ({ onChageUser, setOnChangeUser }) => {
                             onClick={() => setOnChangeUser(false)}
                         >
                             Cancel
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </form>
