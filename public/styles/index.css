@@ -24,6 +24,9 @@ body {
     background-color: #12002b;
 }
 
+.bg-clear {
+    background-color: #dfe6ed;
+}
 .sr-only {
     border: 0 !important;
     clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
@@ -199,8 +202,14 @@ body {
 .input-wrapper {
     display: flex;
     flex-direction: column;
-    text-align: left;
+    /* text-align: left; */
     margin-bottom: 1rem;
+}
+.input-wrapper.left {
+    align-items: flex-end;
+}
+.input-wrapper.right {
+    align-items: flex-start;
 }
 
 .input-wrapper label {
@@ -238,6 +247,9 @@ body {
     text-align: left;
     margin-bottom: 2rem;
 }
+.account.account-clear {
+    border: 2px solid #cad3db;
+}
 
 .account-amount {
     margin: 0;
@@ -268,6 +280,17 @@ body {
     font-weight: bold;
     padding: 10px;
 }
+.edit-button.change-user {
+    border: 1px solid #6458f5;
+    background-color: #fff;
+    color: #6458f5;
+    border-radius: 3px;
+    text-align: center;
+    font-size: 15px;
+    width: 100px;
+    padding: 5px 0;
+    cursor: pointer;
+}
 
 .header {
     color: #fff;
@@ -284,6 +307,12 @@ body {
     border-color: #00bc77;
     background-color: #00bc77;
     color: #fff;
+}
+.transaction-button.clear {
+    border: 1px solid #6458f5;
+    background-color: #6458f5;
+    border-radius: 3px;
+    color: #ebe9fe;
 }
 
 @media (min-width: 720px) {
@@ -309,4 +338,11 @@ body {
 
 .wrapInput-changeUser .input-wrapper input {
     margin-bottom: 10px;
+    border: 2px solid #cad3db;
+    border-radius: 3px;
+}
+
+.wrapInput-changeUser .input-wrapper input::placeholder {
+    font-size: 15px;
+    color: #cad3db;
 }

@@ -36,7 +36,7 @@ const Dashboard = () => {
     const [onChageUser, setOnChangeUser] = useState(false);
 
     return (
-        <main className="main bg-dark">
+        <main className={!onChageUser ? 'main bg-dark' : 'main bg-clear'}>
             {!onChageUser ? (
                 <HeaderWelcome
                     onChageUser={onChageUser}
@@ -50,7 +50,9 @@ const Dashboard = () => {
             )}
 
             <h2 className="sr-only">Accounts</h2>
-            <section className="account">
+            <section
+                className={!onChageUser ? 'account' : 'account account-clear'}
+            >
                 <div className="account-content-wrapper">
                     <h3 className="account-title">
                         Argent Bank Checking (x8349)
@@ -61,12 +63,20 @@ const Dashboard = () => {
                     </p>
                 </div>
                 <div className="account-content-wrapper cta">
-                    <button className="transaction-button">
+                    <button
+                        className={
+                            !onChageUser
+                                ? 'transaction-button'
+                                : 'transaction-button clear'
+                        }
+                    >
                         View transactions
                     </button>
                 </div>
             </section>
-            <section className="account">
+            <section
+                className={!onChageUser ? 'account' : 'account account-clear'}
+            >
                 <div className="account-content-wrapper">
                     <h3 className="account-title">
                         Argent Bank Savings (x6712)
@@ -77,12 +87,20 @@ const Dashboard = () => {
                     </p>
                 </div>
                 <div className="account-content-wrapper cta">
-                    <button className="transaction-button">
+                    <button
+                        className={
+                            !onChageUser
+                                ? 'transaction-button'
+                                : 'transaction-button clear'
+                        }
+                    >
                         View transactions
                     </button>
                 </div>
             </section>
-            <section className="account">
+            <section
+                className={!onChageUser ? 'account' : 'account account-clear'}
+            >
                 <div className="account-content-wrapper">
                     <h3 className="account-title">
                         Argent Bank Credit Card (x8349)
@@ -93,7 +111,13 @@ const Dashboard = () => {
                     </p>
                 </div>
                 <div className="account-content-wrapper cta">
-                    <button className="transaction-button">
+                    <button
+                        className={
+                            !onChageUser
+                                ? 'transaction-button'
+                                : 'transaction-button clear'
+                        }
+                    >
                         View transactions
                     </button>
                 </div>

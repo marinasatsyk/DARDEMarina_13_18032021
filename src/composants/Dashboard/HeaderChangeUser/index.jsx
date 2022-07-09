@@ -78,10 +78,10 @@ export const HeaderChangeUser = ({ onChageUser, setOnChangeUser }) => {
     };
     return (
         <div className="header">
-            <h1> Welcome back</h1>
+            <h1 style={{ color: '#243442' }}> Welcome back</h1>
             <form onSubmit={handleSubmit}>
                 <div className="wrapInput-changeUser">
-                    <div className="input-wrapper">
+                    <div className="input-wrapper left">
                         <input
                             type="text"
                             id="firstName"
@@ -90,9 +90,11 @@ export const HeaderChangeUser = ({ onChageUser, setOnChangeUser }) => {
                             onChange={handleChange}
                             value={formData.firstName}
                         />
-                        <button className="edit-button">Save</button>
+                        <button className="edit-button change-user">
+                            Save
+                        </button>
                     </div>
-                    <div className="input-wrapper">
+                    <div className="input-wrapper right">
                         <input
                             type="text"
                             id="lastName"
@@ -102,7 +104,7 @@ export const HeaderChangeUser = ({ onChageUser, setOnChangeUser }) => {
                             value={formData.lastName}
                         />
                         <div
-                            className="edit-button"
+                            className="edit-button change-user"
                             onClick={() => setOnChangeUser(false)}
                         >
                             Cancel
