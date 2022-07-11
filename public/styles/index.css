@@ -361,3 +361,8 @@ body {
     font-size: 15px;
     color: #cad3db;
 }
+
+.error {
+    font-size: 10px;
+    color: red;
+}

@@ -55,7 +55,10 @@ const Navbar = () => {
     return (
         <nav className="main-nav">
             <Link to={!(user && user.id) ? '/' : '/user/profile'}>
-                <div className="main-nav-logo">
+                <div
+                    className="main-nav-logo"
+                    onClick={() => dispatch(getUserFail(''))}
+                >
                     <img
                         className="main-nav-logo-image"
                         src={logo}
@@ -66,7 +69,10 @@ const Navbar = () => {
             </Link>
             {!(user && user.id) ? (
                 <Link to="/user/login">
-                    <div className="main-nav-item">
+                    <div
+                        className="main-nav-item"
+                        onClick={() => dispatch(getUserFail(''))}
+                    >
                         <i className="fa fa-user-circle"></i>
                         Sign In
                     </div>
@@ -94,7 +100,7 @@ const Navbar = () => {
                         </div>
 
                         <div>
-                            <i class="fa fa-sign-out"></i>
+                            <i className="fa fa-sign-out"></i>
                             Sign Out
                         </div>
                     </div>

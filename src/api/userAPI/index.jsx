@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
 import { getUserFail } from '../../features/UserSlice';
 const rootURL = 'http://localhost:3001/api/v1';
 const loginUrl = rootURL + '/user/login';
@@ -68,7 +67,6 @@ export const fetchUser = () => {
 
 export const putDataNewUser = async (navigate, formRequest) => {
     console.log('putData function');
-    // const url = 'http://localhost:3001/api/v1/user/signup';
 
     return new Promise(async (resolve, reject) => {
         try {
@@ -79,9 +77,11 @@ export const putDataNewUser = async (navigate, formRequest) => {
             }
             resolve(res.data);
         } catch (error) {
-            // dispatch(getUserFail(error));
+            console.log('from putData');
             console.log(error);
-            reject(error.message);
+            console.log(error.response.data.message);
+            // dispatch(getUserFail(error.response.data.message));
+            reject(error.response.data.message);
         }
     });
 };

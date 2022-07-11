@@ -12,6 +12,9 @@ const UserSlice = createSlice({
         getUserPending: (state) => {
             state.isLoading = true;
         },
+        stopUserPending: (state) => {
+            state.isLoading = false;
+        },
         getUserSuccess: (state, { payload }) => {
             state.isLoading = false;
             state.user = payload;
@@ -27,6 +30,11 @@ const UserSlice = createSlice({
     },
 });
 
-export const { getUserPending, getUserSuccess, getUserFail, logout } =
-    UserSlice.actions;
+export const {
+    getUserPending,
+    stopUserPending,
+    getUserSuccess,
+    getUserFail,
+    logout,
+} = UserSlice.actions;
 export default UserSlice.reducer;

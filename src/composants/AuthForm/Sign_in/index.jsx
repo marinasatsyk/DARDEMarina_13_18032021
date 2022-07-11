@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 // import { Alert, Spinner } from 'react-bootstrap';
 
@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 const SignIn = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { error } = useSelector((store) => store.user);
 
     //verification if checkbox "signIUp" is checked, use local state
     const [formData, setFormData] = useState({
@@ -41,7 +42,7 @@ const SignIn = () => {
         event.preventDefault();
 
         //submit to API
-        //add verification of format!!! and isAuth=true
+        //add verification of format!!!
         dispatch(getUserPending());
         console.log(formData);
         try {
@@ -52,8 +53,9 @@ const SignIn = () => {
             user && dispatch(getUserSuccess(user.body));
             navigate('/user/profile');
         } catch (error) {
+            console.log('from handle submit');
             console.log(error);
-            dispatch(getUserFail(error.message));
+            dispatch(getUserFail(error.response.data.message));
         }
     };
 
@@ -66,6 +68,13 @@ const SignIn = () => {
             <section className="sign-in-content">
                 <i className="fa fa-user-circle sign-in-icon"></i>
                 <h1>Sign In</h1>
+                {/* {error.includes('password') || error.includes('User') ? (
+                    <div>{error}</div>
+                ) : null} */}
+                {error &&
+                    (error.includes('Password') || error.includes('User') ? (
+                        <div className="error">{error}</div>
+                    ) : null)}
 
                 <form onSubmit={handleSubmit}>
                     <div className="input-wrapper">
@@ -101,11 +110,16 @@ const SignIn = () => {
 
                     {
                         <Link to={'/user/signup'}>
-                            <div>Sign up</div>
+                            <div onClick={() => dispatch(getUserFail(''))}>
+                                Sign up
+                            </div>
                         </Link>
                     }
 
-                    <button className="sign-in-button" onClick={openDashboard}>
+                    <button
+                        className="sign-in-button"
+                        onClick={() => openDashboard()}
+                    >
                         Sign In
                     </button>
                 </form>
