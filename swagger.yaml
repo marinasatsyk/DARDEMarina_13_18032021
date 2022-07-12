@@ -34,6 +34,8 @@ paths:
                     description: Internal Server Error
         post:
             description: API for add a new transaction
+            security:
+                - bearerAuth: []
             parameters:
                 - in: header
                   name: Bearer JWT

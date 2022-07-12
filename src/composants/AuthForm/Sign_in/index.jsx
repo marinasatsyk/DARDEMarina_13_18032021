@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
-// import { Alert, Spinner } from 'react-bootstrap';
 
 import {
     getUserPending,
@@ -25,7 +24,6 @@ const SignIn = () => {
     });
     const { username, password, isRemember } = formData;
     const formRequest = { email: username, password: password };
-    console.log(isRemember);
 
     //function for get the input value
     function handleChange(event) {
@@ -68,9 +66,6 @@ const SignIn = () => {
             <section className="sign-in-content">
                 <i className="fa fa-user-circle sign-in-icon"></i>
                 <h1>Sign In</h1>
-                {/* {error.includes('password') || error.includes('User') ? (
-                    <div>{error}</div>
-                ) : null} */}
                 {error &&
                     (error.includes('Password') || error.includes('User') ? (
                         <div className="error">{error}</div>

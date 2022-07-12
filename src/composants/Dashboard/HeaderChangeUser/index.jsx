@@ -61,7 +61,6 @@ export const HeaderChangeUser = ({ onChageUser, setOnChangeUser }) => {
                     ? user.lastName
                     : ChangeUser.lastName,
         };
-        console.log(dataUpd);
         dispatch(getUserPending());
         try {
             const user = await updateUser(dataUpd);

@@ -58,7 +58,6 @@ export const fetchUser = () => {
             console.log(res);
             resolve(res.data);
         } catch (error) {
-            // dispatch(getUserFail(error));
             console.log(error);
             reject(error.message);
         }
@@ -80,7 +79,6 @@ export const putDataNewUser = async (navigate, formRequest) => {
             console.log('from putData');
             console.log(error);
             console.log(error.response.data.message);
-            // dispatch(getUserFail(error.response.data.message));
             reject(error.response.data.message);
         }
     });
@@ -88,14 +86,10 @@ export const putDataNewUser = async (navigate, formRequest) => {
 
 export const updateUser = (formUpdate) => {
     console.log('formUpdate update User');
-    console.log(formUpdate);
     return new Promise(async (resolve, reject) => {
         try {
             const JWT = getJWT();
             if (!JWT) reject('Token non found!');
-
-            console.log('in try UPDATE');
-            console.log('update ' + JWT);
 
             const res = await axios({
                 method: 'put',
@@ -106,10 +100,8 @@ export const updateUser = (formUpdate) => {
                 },
             });
 
-            console.log(res);
             resolve(res.data);
         } catch (error) {
-            // dispatch(getUserFail(error));
             console.log(error);
             reject(error.message);
         }
