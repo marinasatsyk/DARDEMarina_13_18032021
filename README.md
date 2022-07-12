@@ -24,8 +24,7 @@ There is all the information concerning the installation of backend part in file
 -   Fork the repository (https://github.com/marinasatsyk/DARDEMarina_13_18032021.git)
 -   Clone it on your computer.
 -   The `npm i` or `yarn` command will allow you to install the dependencies.
--
--   The frontend part command will allow you to run the the application. .
+-   Thirst run back backend and second run frontend with npm start;
 
 Runs the app in the development mode.
 Open [http://http://localhost:3000/]to view it in your browser.
